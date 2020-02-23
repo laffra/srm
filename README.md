@@ -1,6 +1,6 @@
 # Slack Robot Manager
 
-An extension for Chrome that shows/hides messages from Slack robots.
+An extension for Chrome that shows/hides messages from Slack robots. Install it now from the [Chrome Webstore](https://chrome.google.com/webstore/detail/slack-robot-manager/cpgfllbbckconcoilhneahalpafjgocj).
 
 The current list of supported robots can be found in [robots.js](slack-robot-manager/robots.js).
 
