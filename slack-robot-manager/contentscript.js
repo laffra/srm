@@ -37,6 +37,7 @@
         try {
             $(".c-app_badge").each(toggleAppBadge);
             $(".p-rich_text_section").each(toggleBotInstruction);
+            addToggle();
             debug("run")
         } catch (e) {
             debug("Error: " + e)
@@ -44,10 +45,11 @@
     }
 
     function addToggle() {
-        const navbar = $(".p-classic_nav__model__buttons.p-classic_nav__no_drag")
-        if (navbar.length === 0) {
-            debug(".")
-            return setTimeout(addToggle, 1000);
+        const navbar = $(".p-classic_nav__model__buttons.p-classic_nav__no_drag");
+        const toggle = $("#slack-robot-manager-toggle");
+
+        if (toggle.length !== 0) {
+            return;
         }
         debug("add toggle")
         navbar.append(
@@ -74,7 +76,6 @@
         document.body.addEventListener('DOMSubtreeModified', startTimer);
     }
 
-    setTimeout(addToggle, 3000);
     setupTimer()
     run();
 })();
