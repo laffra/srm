@@ -1,7 +1,7 @@
 (function SlackRobotManager() {
     const ICON_SHOW_ROBOTS = "https://chrislaffra.com/srm/showrobots.png";
     const ICON_HIDE_ROBOTS = "https://chrislaffra.com/srm/hiderobots.png";
-    const ROBOTS = slack_robot_manager_robots.map(function (robot) { return robot["name"] + robot["tag"] });
+    const ROBOTS = slack_robot_manager_robots;
 
     let hideRobots = true;
 
@@ -17,20 +17,26 @@
     }
 
     function toggleBotInstruction() {
-        if ($(this).text().startsWith("!w")) {
-            $(this).closest(".c-virtual_list__item").each(toggle);
-        }
+        const text = $(this).text();
+        ROBOTS.forEach(robot => {
+            if (robot["trigger"]  && text.match(robot["trigger"])) {
+                $(this).closest(".c-virtual_list__item").each(toggle);
+            }
+        });
     }
 
     function toggleAppBadge() {
-        const text = $(this).parent().parent().text();
-        if (ROBOTS.indexOf(text) !== -1) {
-            let item = $(this).closest(".c-virtual_list__item");
-            do {
-                item.each(toggle);
-                item = item.next();
-            } while (item.length && !item.find(".c-avatar").length);
-        }
+        ROBOTS.forEach(robot => {
+            if (!robot["tag"] || $(this).text().match(robot["tag"])) {
+                if (robot["name"] && $(this).parent().prev().text().match(robot["name"])) {
+                    let item = $(this).closest(".c-virtual_list__item");
+                    do {
+                        item.each(toggle);
+                        item = item.next();
+                    } while (item.length && !item.find(".c-avatar").length);
+                }
+            }
+        })
     }
 
     function run() {
@@ -49,7 +55,7 @@
         const toggle = $("#slack-robot-manager-toggle");
 
         if (toggle.length !== 0) {
-            return;
+            return; // already added the toggle
         }
         debug("add toggle")
         navbar.append(

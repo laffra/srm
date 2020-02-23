@@ -25,3 +25,7 @@ The current list of supported robots can be found in [robots.js](robots.js). To 
 2. Go to `chrome://extensions` and reload the unpacked extension
 3. Reload your `app.slack.com` browser windows
 4. Create a github pull request to share your robot definitions
+
+## Known Issues
+
+When this extensions hides robot messages from the current channel, the slack app reacts to it by reflowing the current channel. This results is some yank. When a channel contains a lot of robot messages, this starts to make it hard to scroll backwards.
